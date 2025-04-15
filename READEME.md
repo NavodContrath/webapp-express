@@ -1,5 +1,5 @@
 # Web app
- un app di **libri** in cui si lasciano delle **review** pubbliche
+ un app di **film** in cui si lasciano delle **review** pubbliche
 
 ## TODO
 **BACKEND**
