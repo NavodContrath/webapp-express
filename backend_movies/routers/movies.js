@@ -7,5 +7,7 @@ router.get('/', moviesController.index)
 router.get('/:id', moviesController.show)
 //storeReview
 router.post('/:id/review', moviesController.storeReview)
+//destroyReview
+router.delete('/:id/review', moviesController.destroyReview)
 
 module.exports = router

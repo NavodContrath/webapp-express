@@ -47,10 +47,18 @@ function storeReview(req, res) {
         if (err) return res.status(500).json({ error: err.message })
         res.status(201).json({ message: 'Review saved with success!', data: values })
     })
-
+}
+function destroyReview(req, res) {
+    const id = Number(req.params.id)
+    const sql = 'DELETE FROM reviews WHERE id=?'
+    connection.query(sql, [id], (err) => {
+        if (err) return res.status(500).json({ error: err.message })
+        res.sendStatus(204)
+    })
 }
 module.exports = {
     index,
     show,
-    storeReview
+    storeReview,
+    destroyReview
 }
