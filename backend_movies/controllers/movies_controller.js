@@ -15,7 +15,7 @@ function show(req, res) {
     //define sql query to get movie with specific id
     const sql = 'SELECT * FROM movies WHERE id=?'
     //define sql query to get reviews with specific id
-    const reviewSql = 'SELECT reviews.name,reviews.text,reviews.vote FROM reviews WHERE id=?'
+    const reviewSql = 'SELECT reviews.name,reviews.text,reviews.vote FROM reviews WHERE movie_id=?'
     //execute movie's query
     connection.query(sql, [id], (err, results) => {
         if (err) return res.status(500).json({ error: err.message })
@@ -31,8 +31,26 @@ function show(req, res) {
 
     })
 }
+function storeReview(req, res) {
+    //take id from request
+    const id = Number(req.params.id)
+    //define and destructure data from req.bdy
+    const { name, vote, text } = req.body
+    //create DATETIME
+    const created_at = new Date().toISOString().slice(0, 19).replace('T' + ' ')
+    const updated_at = created_at
+    //sql query used to insert a new review using values const
+    const insertSql = 'INSERT INTO reviews (movie_id,name,vote,text,created_at,updated_at) VALUES (?,?,?,?,?,?)'
+    const values = [id, name, vote, text, created_at, updated_at]
+    //execute query 
+    connection.query(insertSql, values, (err) => {
+        if (err) return res.status(500).json({ error: err.message })
+        res.status(201).json({ message: 'Review saved with success!', data: values })
+    })
 
+}
 module.exports = {
     index,
-    show
+    show,
+    storeReview
 }

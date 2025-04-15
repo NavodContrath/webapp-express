@@ -5,5 +5,7 @@ const router = require('express').Router()
 router.get('/', moviesController.index)
 //show
 router.get('/:id', moviesController.show)
+//storeReview
+router.post('/:id/review', moviesController.storeReview)
 
 module.exports = router
